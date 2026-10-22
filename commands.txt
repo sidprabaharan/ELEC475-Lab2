@@ -14,6 +14,12 @@ python run_experiments.py --phase core --device cuda --seeds 42
 OPTIONAL THREE-SEED REPLICATION FOR MEAN +/- STD REPORTING
 python run_experiments.py --phase cifar --device cuda --seeds 42 123 2026
 
+FOCUSED BATCHNORM MULTI-SEED REPLICATION USED IN THE REPORT
+python train.py --model alexnet --norm bn --dataset cifar10 --epochs 10 --seed 123 --device cuda --no-augment --save-model checkpoints/alexnet_bn_seed123.pth --plot-file plots/loss_alexnet_bn_seed123.png --history-file results/history_alexnet_bn_seed123.json
+python evaluate.py --checkpoint checkpoints/alexnet_bn_seed123.pth --model alexnet --norm bn --dataset cifar10 --seed 123 --device cuda --output-file results/evaluation_alexnet_bn_seed123.json
+python train.py --model alexnet --norm bn --dataset cifar10 --epochs 10 --seed 2026 --device cuda --no-augment --save-model checkpoints/alexnet_bn_seed2026.pth --plot-file plots/loss_alexnet_bn_seed2026.png --history-file results/history_alexnet_bn_seed2026.json
+python evaluate.py --checkpoint checkpoints/alexnet_bn_seed2026.pth --model alexnet --norm bn --dataset cifar10 --seed 2026 --device cuda --output-file results/evaluation_alexnet_bn_seed2026.json
+
 OPTIONAL FULL TINY IMAGENET TABLE 7.3b
 python run_experiments.py --phase full --device cuda --seeds 42
 
