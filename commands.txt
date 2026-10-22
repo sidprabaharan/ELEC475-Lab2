@@ -1,0 +1,37 @@
+ELEC 475 LAB 2 - REPRODUCIBLE COMMANDS
+Run all commands from the project root.
+
+SETUP AND VERIFICATION
+python -m pip install -r requirements.txt
+python -m pytest -q
+python -m models.lenet
+python -m models.lenet_modern
+python -m models.alexnet
+
+AUTOMATED CORE EXPERIMENTS (recommended on a Colab GPU)
+python run_experiments.py --phase core --device cuda --seeds 42
+
+OPTIONAL THREE-SEED REPLICATION FOR MEAN +/- STD REPORTING
+python run_experiments.py --phase cifar --device cuda --seeds 42 123 2026
+
+OPTIONAL FULL TINY IMAGENET TABLE 7.3b
+python run_experiments.py --phase full --device cuda --seeds 42
+
+INDIVIDUAL REQUIRED RUNS
+python train.py --model lenet --dataset cifar10 --epochs 5 --seed 42 --no-augment --save-model checkpoints/lenet_baseline.pth --plot-file plots/loss_lenet.png --history-file results/history_lenet_baseline.json
+python train.py --model lenet_modern --dataset cifar10 --epochs 5 --seed 42 --no-augment --save-model checkpoints/lenet_modern.pth --plot-file plots/loss_lenet_modern.png --history-file results/history_lenet_modern.json
+python train.py --model alexnet --norm none --dataset cifar10 --epochs 10 --seed 42 --no-augment --save-model checkpoints/alexnet_none.pth --plot-file plots/loss_alexnet_none.png --history-file results/history_alexnet_none.json
+python train.py --model alexnet --norm lrn --dataset cifar10 --epochs 10 --seed 42 --no-augment --save-model checkpoints/alexnet_lrn.pth --plot-file plots/loss_alexnet_lrn.png --history-file results/history_alexnet_lrn.json
+python train.py --model alexnet --norm bn --dataset cifar10 --epochs 10 --seed 42 --no-augment --save-model checkpoints/alexnet_bn.pth --plot-file plots/loss_alexnet_bn.png --history-file results/history_alexnet_bn.json
+python train.py --model alexnet --norm bn --dataset cifar10 --epochs 15 --seed 42 --no-augment --save-model checkpoints/alexnet_no_aug.pth --plot-file plots/loss_alexnet_no_aug.png --history-file results/history_alexnet_no_aug.json
+python train.py --model alexnet --norm bn --dataset cifar10 --epochs 15 --seed 42 --save-model checkpoints/alexnet_with_aug.pth --plot-file plots/loss_alexnet_with_aug.png --history-file results/history_alexnet_with_aug.json
+python train.py --model alexnet --norm bn --dataset tiny_imagenet --epochs 10 --seed 42 --save-model checkpoints/alexnet_tiny_imagenet.pth --plot-file plots/loss_alexnet_tiny_imagenet.png --history-file results/history_alexnet_tiny_imagenet.json
+python train.py --model zoo_alexnet --dataset cifar10 --epochs 15 --seed 42 --no-augment --save-model checkpoints/zoo_alexnet.pth --plot-file plots/loss_zoo_alexnet.png --history-file results/history_zoo_alexnet.json
+
+MODEL PROFILING
+python compare_models.py --dataset cifar10 --device cuda --output-file results/complexity_cifar10.md
+
+NOTE
+The normalization and architecture baselines explicitly use --no-augment so the
+ablation isolates the intended variable. The augmented AlexNet and Tiny ImageNet
+commands intentionally omit --no-augment.

@@ -1,0 +1,3 @@
+Local Git repository prepared in the submitted project folder.
+Remote GitHub URL: pending student publication.
+

@@ -1,0 +1,15 @@
+# Local environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Downloaded datasets are intentionally excluded from submission and version control
+data/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
