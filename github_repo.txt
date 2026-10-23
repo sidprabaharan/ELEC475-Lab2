@@ -1,3 +1,1 @@
-Local Git repository prepared in the submitted project folder.
-Remote GitHub URL: pending student publication.
-
+https://github.com/sidprabaharan/ELEC475-Lab2
